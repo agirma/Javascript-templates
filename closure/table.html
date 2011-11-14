@@ -1,0 +1,20 @@
+<html>
+<head>
+  <title>Closure Templates</title>
+  <script type="text/javascript" src="soyutils.js"></script>
+  <script type="text/javascript" src="../data.js"></script>
+  <script type="text/javascript" src="table.tmpl.js"></script>
+  <script type="text/javascript" src="rows.tmpl.js"></script>
+  <script type="text/javascript" src="../jquery.js"></script>
+</head>
+<body>
+<div id="content"></div>
+  <script type="text/javascript">
+
+  	templateJs.data.render(function (records) {
+  		$("#content").html(templateJs.widget.table({ records: records }));
+  	});
+  	
+  </script>
+</body>
+</html>

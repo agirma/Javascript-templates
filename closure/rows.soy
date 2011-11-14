@@ -1,0 +1,18 @@
+{namespace templateJs.widget}
+
+/**
+ * list of records.
+ * @param records List of users.
+ */
+{template .rows}
+	{foreach $record in $records}
+	
+		<tr>
+			<td> {$record.number} </td>
+			<td> {$record.name} </td>
+			<td> {$record.email} </td>
+			<td> {$record.phone} </td>
+			<td> {$record.address}</td>
+		</tr>
+	{/foreach}
+{/template}

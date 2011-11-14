@@ -1,0 +1,79 @@
+﻿<!DOCTYPE HTML>
+<html>
+ <head>
+    <title>javascript templates perfornamce profiling</title>
+    <script language="javascript" type="text/javascript" src="jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="jquery.flot.js"></script>
+ </head>
+    <body>
+
+    <script type="text/javascript">
+
+        $(function () {
+            var perfData = {
+                Chrome: {
+                    closure: [0, 1, 3, 7, 11, 15, 19, 24, 28, 32, 37],
+                    jaml: [0, 2, 15, 32, 49, 81, 78, 95, 108, 147, 172],
+                    jquery: [0, 3, 10, 19, 30, 44, 48, 65, 122, 78, 100],
+                    mustache: [0, 1, 6, 12, 18, 26, 34, 38, 48, 52, 59],
+                    underscore: [0, 1, 4, 8, 12, 17, 23, 26, 31, 36, 41],
+                },
+                Firefox: {
+                    closure: [0, 1, 3, 5, 9, 12, 15, 19, 22, 26, 29],
+                    jaml: [0, 2, 61, 120, 184, 244, 305, 363, 428, 477, 877],
+                    jquery: [0, 2, 14, 26, 36, 51, 62, 76, 90, 104, 116],
+                    mustache: [0, 1, 6, 13, 21, 27, 35, 42, 50, 58, 64],
+                    underscore: [0, 1, 3, 6, 10, 15, 18, 21, 26, 30, 34],
+                },
+                IE: {
+                    closure: [0, 1, 5, 13, 21, 29, 37, 48, 55, 64, 71],
+                    jaml: [0, 1, 7, 17, 27, 39, 49, 67, 79, 81, 91],
+                    jquery: [0, 3, 21, 46, 69, 96, 129, 164, 169, 195, 221],
+                    mustache: [0, 1, 8, 19, 30, 41, 53, 69, 75, 88, 106],
+                    underscore: [0, 1, 5, 13, 20, 29, 37, 45, 56, 62, 70],
+                }
+            };
+
+            for(var browser in perfData) {
+                $('<h1/>').text(browser).appendTo($('body'));
+                var container = $('<div style="width:600px;height:300px;"></div>')
+                    .appendTo($('body'));
+                
+                var plotData =  getPlotData(perfData[browser]);
+                 
+                plot(container, plotData);
+            }
+
+            function getPlotData(libs) {
+                var plotData = [];
+                for (var lib in libs) {
+                    var xy = [];
+                    for (var i = 0, y = libs[lib]; i < y.length; i += 1) {
+                        xy.push([i * 100, y[i]]);
+                    }
+                    plotData.push({
+                         label: lib,
+                         data: xy
+                    });
+                }
+
+                return plotData;
+            }
+
+
+            function plot(container, data) {
+                $.plot($(container), data, {
+                    yaxis: {
+                        max: 400,
+                        position: 'right'
+                    },
+                    legend: {
+                        position: 'nw'
+                    }
+                });
+            }
+        });
+    </script>
+
+ </body>
+</html>

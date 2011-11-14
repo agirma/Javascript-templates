@@ -1,0 +1,1 @@
+Benchmark different javascript templating engines : closure, Jaml, jQuery, mustache and underscore.

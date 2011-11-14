@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>jaml Templates</title>
+  <script type="text/javascript" src="mustache.js"></script>
+  <script type="text/javascript" src="../jQuery.js"></script>
+  <script type="text/javascript" src="../data.js"></script>
+</head>
+<body>
+<div id="content"></div>
+ <script type="text/javascript">
+
+	var table_template = "",
+		rows_template = "";
+
+	$.ajax({
+		url: 'table.tmpl.js',
+		dataType: 'text',
+		async: false,
+		success: function (data) {
+			table_template = data;
+		}
+	});
+	$.ajax({
+		url: 'rows.tmpl.js',
+		dataType: 'text',
+		async: false,
+		success: function (data) {
+			rows_template = data;
+		}
+	});
+
+	templateJs.data.render(function (records) {
+		$("#content").html(Mustache.to_html(table_template, {
+				records: records
+			}, {
+				rows_template: rows_template
+			}));
+	});
+
+	
+  </script>
+</body>
+</html>

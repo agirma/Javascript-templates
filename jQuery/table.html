@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>jQuery Templates</title>
+  <script type="text/javascript" src="../jquery.js"></script>
+  <script type="text/javascript" src="tmpl.js"></script>
+  <script type="text/javascript" src="../data.js"></script>
+</head>
+<body>
+ <div id="content"></div>
+ <script type="text/javascript">
+	$.ajax({
+		url: 'table.tmpl.js',
+		dataType: 'text',
+		async: false,
+		success: function (data) {
+			$('body').append(data);
+		}
+	});
+	$.ajax({
+		url: 'rows.tmpl.js',
+		dataType: 'text',
+		async: false,
+		success: function (data) {
+			$('body').append(data);
+		}
+	});
+
+
+	templateJs.data.render(function (records) {
+		$("#content").html($("#table-template").tmpl({ records: records }));
+	});
+	
+  </script>
+</body>
+</html>

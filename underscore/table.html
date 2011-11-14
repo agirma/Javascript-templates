@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Underscore Templates</title>
+  <script type="text/javascript" src="../jquery.js"></script>
+  <script type="text/javascript" src="underscore.js"></script>
+  <script type="text/javascript" src="../data.js"></script>
+</head>
+<body>
+<div id="content"></div>
+ <script type="text/javascript">
+	var table_template = "",
+		rows_template = "";
+		
+	$.ajax({
+		url: 'table.tmpl.js',
+		dataType: 'text',
+		async: false,
+		success: function (data) {
+			table_template = data;
+		}
+	});
+	$.ajax({
+		url: 'rows.tmpl.js',
+		dataType: 'text',
+		async: false,
+		success: function (data) {
+			rows_template = data;
+		}
+	});
+
+	templateJs.data.render(function (records) {
+		// To step binding: first embed the dependent template then databind.
+		var template = _.template(table_template, {
+			rows_template: rows_template
+		});
+		
+		$("#content").html(_.template(template, { records: records }));
+	});
+	
+  </script>
+</body>
+</html>
